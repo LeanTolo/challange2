@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GeoCodificador": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

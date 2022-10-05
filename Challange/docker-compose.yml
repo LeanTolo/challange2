@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  challange:
+    image: ${DOCKER_REGISTRY-}challange
+    build:
+      context: .
+      dockerfile: Challange/Dockerfile
+    depends_on:
+      - db
+      - rabbitmq
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Pa55w0rd2022"
+    ports:
+      - "1433:1433"
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    labels:
+      NAME: "rabbitmq"
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+  geocodificador:
+    image: ${DOCKER_REGISTRY-}geocodificador
+    build:
+      context: .
+      dockerfile: GeoCodificador/Dockerfile
+    depends_on:
+      - rabbitmq
